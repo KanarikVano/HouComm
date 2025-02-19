@@ -1,86 +1,37 @@
-@extends('layouts/main_layout')
+@extends('layouts/app')
 
 @section('content')
-<div class="container p-3">
-    <h1 class="text-center mb-3 display-3">Панель администратора</h1>
-    <div class="cards">
-        @foreach($apps as $app)
-        @if ($app->status == 1)
-        <div class="card w-100 mb-3 mt-3">
-            <div class="card-body">
-                <h5 class="card-title">Нарушение №{{$app->id}}</h5>
-                <p class="mb-1"><span class="fw-semibold">Фамилия:</span> {{$app->user->firstname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Имя:</span> {{$app->user->lastname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Отчество:</span> {{$app->user->surname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Статус:</span> {{$app->user->getStatus()}}</p>
-                <p class="mb-1"><span class="fw-semibold">Гос номер автомобиля:</span> {{$app->user->gosRegNumber}}</p>
-                <p class="card-text">{{$app->description}}</p>
-                <div class="d-flex align-items-center justify-content-between cards_btn">
-                    <form action="{{route('app.repair', ['id'=>$app->id])}}" method="post">
-                        @csrf
-                        @method('PATCH');
-                        <input type="submit" value="Подтвердить" class="card-link btn btn-primary my-3 shadow-sm  p-3 px-5 rounded-pill">Подтвердить</input>
-                    </form>
-                    <form action="{{route('app.repair', ['id'=>$app->id])}}" method="post">
-                        @csrf
-                        @method('PATCH');
-                        <input type="submit" value="Отменить" class="card-link btn btn-outline-primary mb-3 mt-3 shadow-sm p-3 px-5 rounded-pill m-0 ">Отменить</input>
-                    </form>
-                </div>
-            </div>
+<div class="card shadow">
+    <div class="card-body">
+        <h2 class="card-title mb-4">Управление тарифами</h2>
+        <a href="{{ route('admin.tariffs.create') }}" class="btn btn-primary mb-3">Добавить тариф</a>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Цена (₽)</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($tariffs as $tariff)
+                    <tr>
+                        <td>{{ $tariff->name }}</td>
+                        <td>{{ $tariff->price }}</td>
+                        <td>
+                            <a href="{{ route('admin.tariffs.edit', $tariff->id) }}" class="btn btn-sm btn-warning">Редактировать</a>
+                            <form action="{{ route('admin.tariffs.destroy', $tariff->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Вы уверены?')">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        @endif
-        @if ($app->status == 2)
-        <div class="card w-100 mb-3 mt-3 bg-warning-subtle text-warning-emphasis border-warning-subtle">
-            <div class="card-body">
-                <h5 class="card-title">Нарушение №{{$app->id}}</h5>
-                <p class="mb-1"><span class="fw-semibold">Фамилия:</span> {{$app->user->firstname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Имя:</span> {{$app->user->lastname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Отчество:</span> {{$app->user->surname}}</p>
-                <!-- <p class="mb-1"><span class="fw-semibold">Статус:</span> {{$app->user->getStatus()}}</p> -->
-                <p class="mb-1"><span class="fw-semibold">Гос номер автомобиля:</span> {{$app->user->gosRegNumber}}</p>
-                <p class="card-text">{{$app->description}}</p>
-                <div class="d-flex align-items-center justify-content-between cards_btn">
-                    <form action="{{route('app.repair', ['id'=>$app->id])}}" method="post">
-                        @csrf
-                        @method('PATCH');
-                        <input type="submit" value="Подтвердить" class="card-link btn btn-primary my-3 shadow-sm  p-3 px-5 rounded-pill">Подтвердить</input>
-                    </form>
-                    <form action="{{route('app.repair', ['id'=>$app->id])}}" method="post">
-                        @csrf
-                        @method('PATCH');
-                        <input type="submit" value="Отменить" class="card-link btn btn-outline-primary mb-3 mt-3 shadow-sm p-3 px-5 rounded-pill m-0 ">Отменить</input>
-                    </form>
-                </div>
-            </div>
-        </div>
-        @endif
-        @if ($app->status == 3)
-        <div class="card w-100 mb-3 mt-3 bg-warning-subtle text-warning-emphasis border-warning-subtle">
-            <div class="card-body">
-                <h5 class="card-title">Нарушение №{{$app->id}}</h5>
-                <p class="mb-1"><span class="fw-semibold">Фамилия:</span> {{$app->user->firstname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Имя:</span> {{$app->user->lastname}}</p>
-                <p class="mb-1"><span class="fw-semibold">Отчество:</span> {{$app->user->surname}}</p>
-                <!-- <p class="mb-1"><span class="fw-semibold">Статус:</span> {{$app->user->getStatus()}}</p> -->
-                <p class="mb-1"><span class="fw-semibold">Гос номер автомобиля:</span> {{$app->user->gosRegNumber}}</p>
-                <p class="card-text">{{$app->description}}</p>
-                <div class="d-flex align-items-center justify-content-between cards_btn">
-                    <form action="{{route('app.repair', ['id'=>$app->id])}}" method="post">
-                        @csrf
-                        @method('PATCH');
-                        <input type="submit" value="Подтвердить" class="card-link btn btn-primary my-3 shadow-sm  p-3 px-5 rounded-pill">Подтвердить</input>
-                    </form>
-                    <form action="{{route('app.repair', ['id'=>$app->id])}}" method="post">
-                        @csrf
-                        @method('PATCH');
-                        <input type="submit" value="Отменить" class="card-link btn btn-outline-primary mb-3 mt-3 shadow-sm p-3 px-5 rounded-pill m-0 ">Отменить</input>
-                    </form>
-                </div>
-            </div>
-        </div>
-        @endif
-        @endforeach
     </div>
 </div>
 @endsection

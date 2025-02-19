@@ -1,10 +1,11 @@
-@extends('layouts/main_layout')
+@extends('layouts/app')
 
 @section('content')
-    <div class="container p-3">
-        <h1 class="text-center md-3 display-3">Регистрация</h1>
-        <form action="{{route('user.store')}}" method="post" class="m-auto">
-        @csrf
+<div class="card shadow mx-auto" style="max-width: 400px;">
+    <div class="card-body">
+        <h2 class="card-title mb-4">Регистрация</h2>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
             @if ($errors->any())
                 <div class="bg-danger rounded p-3 text-white fs-5">
                     @foreach($errors->all() as $error)
@@ -14,19 +15,23 @@
                 </div>
             @endif
             <div class="mb-3">
-                <label for="login" class="form-label fs-5">Логин</label>
-                <input type="text" class="form-control shadow-sm  p-3 rounded-pill" id="login" name="login">
+                <label class="form-label">Имя</label>
+                <input type="text" name="name" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label fs-5">Пароль</label>
-                <input type="password" class="form-control shadow-sm  p-3 rounded-pill" id="password" name="password">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="password-repeat" class="form-label fs-5">Повторите пароль</label>
-                <input type="password" class="form-control shadow-sm  p-3 rounded-pill" id="password-repeat" name="password-repeat">
+                <label class="form-label">Пароль</label>
+                <input type="password" name="password" class="form-control" required>
             </div>
-            <input type="submit" class="btn btn-primary mb-3 mt-3 w-100 shadow-sm  p-3 fs-2 rounded-pill " value="Зарегистрироваться">
-            <a href="{{route('login')}}" class="btn btn-outline-primary  w-100 p-3 fs-2 rounded-pill shadow-sm">Войти</a>
+            <div class="mb-3">
+                <label class="form-label">Подтвердите пароль</label>
+                <input type="password" name="password_confirmation" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
         </form>
     </div>
+</div>
 @endsection

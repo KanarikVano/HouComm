@@ -14,14 +14,14 @@ class UsersTableSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
-            'role' => 1, // Указываем роль администратора
+            'role' => 'admin', // Указываем роль администратора
         ]);
 
         User::create([
             'name' => 'User',
             'email' => 'user@example.com',
             'password' => Hash::make('password'),
-            'role' => 0, // Обычный пользователь
+            'role' => 'user', // Обычный пользователь
         ]);
     }
 }
