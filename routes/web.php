@@ -3,14 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
 // Публичные маршруты
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function(){return view('main');})->name('main');
+Route::get('/login',[UserController::class, 'login'])->name('login');
+Route::get('/reg',[UserController::class, 'reg'])->name('reg');
 
 // Защищённые маршруты для пользователей
 Route::middleware('auth')->group(function () {
