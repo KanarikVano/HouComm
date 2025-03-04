@@ -30,7 +30,7 @@
                 <label class="form-label">Подтвердите пароль</label>
                 <input type="password" name="password_confirmation" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+            <button type="submit" class="btn btn-success w-100">Зарегистрироваться</button>
         </form>
     </div>
 </div>

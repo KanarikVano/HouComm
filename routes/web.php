@@ -12,9 +12,11 @@ Auth::routes();
 Route::get('/', function(){return view('main');})->name('main');
 Route::get('/login',[UserController::class, 'login'])->name('login');
 Route::get('/reg',[UserController::class, 'reg'])->name('reg');
+Route::post('/auth',[UserController::class, 'auth'])->name('auth');
 
 // Защищённые маршруты для пользователей
 Route::middleware('auth')->group(function () {
+    Route::post('/logout',[UserController::class, 'logout'])->name('logout');
     Route::get('/calculations', [CalculationController::class, 'index'])->name('calculations.index');
     Route::get('/calculations/create', [CalculationController::class, 'create'])->name('calculations.create');
     Route::post('/calculations', [CalculationController::class, 'store'])->name('calculations.store');
@@ -23,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
 // Админ-маршруты
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::post('/logout',[UserController::class, 'logout'])->name('logout');
     Route::resource('tariffs', AdminController::class)->except('show');
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 });
