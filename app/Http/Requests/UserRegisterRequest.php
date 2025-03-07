@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class UserRegisterRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'login' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ];
@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Имя обязательно для заполнения.',
+            'login.required' => 'Логин обязательно для заполнения.',
             'email.required' => 'Email обязателен для заполнения.',
             'email.unique' => 'Этот email уже зарегистрирован.',
             'password.required' => 'Пароль обязателен для заполнения.',

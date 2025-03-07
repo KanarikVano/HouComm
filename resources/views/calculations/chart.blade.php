@@ -8,14 +8,14 @@
 
 @push('scripts')
 <script>
-    // Функция для получения данных с сервера
-    async function fetchChartData() {
-        const response = await fetch('{{ route("calculations.data") }}');
-        const data = await response.json();
-        return data;
-    }
+    // Данные для графика
+    const calculations = @json($calculations);
 
-    // Функция для отрисовки графика
+    // Подготовка данных
+    const labels = calculations.map(calc => calc.date);
+    const data = calculations.map(calc => calc.total);
+
+    // Отрисовка графика
     function drawChart(labels, data) {
         const canvas = document.getElementById('myChart');
         const ctx = canvas.getContext('2d');
@@ -75,7 +75,7 @@
         });
         ctx.stroke();
 
-         // Добавление точек и подсказок
+        // Добавление точек и подсказок
         data.forEach((value, index) => {
             const x = yAxisX + index * xStep;
             const y = xAxisY - (value / maxData) * yAxisLength;
@@ -99,15 +99,6 @@
             });
         });
     }
-
-    // Основная функция
-    async function initChart() {
-        const { labels, data } = await fetchChartData();
-        drawChart(labels, data);
-    }
-
-    // Запуск при загрузке страницы
-    document.addEventListener('DOMContentLoaded', initChart);
 </script>
 @endpush
 @endsection

@@ -28,7 +28,7 @@
                             </li>
                             @if(Auth::user()->role === 'admin')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.dashboard') }}">Админпанель</a>
+                                    <a class="nav-link" href="{{ route('admin.index') }}">Админпанель</a>
                                 </li>
                             @endif
                             <li class="nav-item">

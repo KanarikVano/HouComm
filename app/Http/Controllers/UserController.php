@@ -19,12 +19,12 @@ class UserController extends Controller
     }
 
     public function auth(Request $request) {
-        if($user = User::where('login', $request->login)->first() and Hash::check($request->password,$user->password)) {
+        if($user = User::where('email', $request->email)->first() and Hash::check($request->password,$user->password)) {
             Auth::login($user);
-            if (Auth::user()->role=="admin") return redirect()->route('admin.index');
+            if (Auth::user()->role==1) return redirect()->route('admin.index');
             return redirect()->route('calculations.index');
         }
-        return back()->withErrors('Неверный логин или пароль');
+        return back()->withErrors('Неверный email или пароль');
     }
 
     public function logout() {
@@ -39,7 +39,7 @@ class UserController extends Controller
             'login' => $request->login,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'user',
+            'role' => 2,
         ]);
 
         if($user) {

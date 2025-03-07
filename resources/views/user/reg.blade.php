@@ -4,7 +4,7 @@
 <div class="card shadow mx-auto" style="max-width: 400px;">
     <div class="card-body">
         <h2 class="card-title mb-4">Регистрация</h2>
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('user.store') }}">
             @csrf
             @if ($errors->any())
                 <div class="bg-danger rounded p-3 text-white fs-5">
@@ -15,8 +15,8 @@
                 </div>
             @endif
             <div class="mb-3">
-                <label class="form-label">Имя</label>
-                <input type="text" name="name" class="form-control" required>
+                <label class="form-label">Логин</label>
+                <input type="text" name="login" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>

@@ -4,13 +4,13 @@
 <div class="card shadow mx-auto" style="max-width: 400px;">
     <div class="card-body">
         <h2 class="card-title mb-4">Вход</h2>
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('auth') }}">
             @csrf
             @if ($errors->any())
                 <div class="bg-danger rounded-pill p-3">
                     @foreach($errors->all() as $error)
-                    {{$error}}
-                    <br>
+                        {{$error}}
+                        <br>
                     @endforeach
                 </div>
             @endif

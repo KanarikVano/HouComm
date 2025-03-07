@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $tariffs = Tariff::all();
-        return view('admin.tariffs.index', compact('tariffs'));
+        return view('admin.index', compact('tariffs'));
     }
 
     public function create()
